@@ -41,4 +41,15 @@ namespace Poll_Project.Models
         public Question Question { get; set; }
 
     }
+
+    public class CreateResponseViewModel
+    {
+        public CreateResponseViewModel()
+        {
+        }
+
+        public Poll Poll { get; set; }
+        public Response Response { get; set; }
+
+    }
 }

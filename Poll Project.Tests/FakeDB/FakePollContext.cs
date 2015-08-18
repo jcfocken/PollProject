@@ -24,5 +24,10 @@ namespace Poll_Project.Tests.FakeDB
         {
             return 0;
         }
+
+        public void SetModified(object entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -49,21 +49,19 @@ namespace Poll_Project.Controllers
         // GET: Responses/Create
         public ActionResult Create(string pollId)
         {
+            if (pollId == null)
             {
-                if (pollId == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Poll poll = db.Polls.Find(Int32.Parse(pollId));
-                if (poll == null)
-                {
-                    return HttpNotFound();
-                }
-
-                CreateQuestionViewModel ViewModel = new CreateQuestionViewModel();
-                ViewModel.Poll = poll;
-                return View(ViewModel);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Poll poll = db.Polls.Find(Int32.Parse(pollId));
+            if (poll == null)
+            {
+                return HttpNotFound();
+            }
+
+            CreateQuestionViewModel ViewModel = new CreateQuestionViewModel();
+            ViewModel.Poll = poll;
+            return View(ViewModel);
         }
 
         // POST: Questions/Create
@@ -82,7 +80,7 @@ namespace Poll_Project.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Edit", "Polls", new { id = poll.ID });
             }
-            
+
             return View(ViewModel);
         }
 

@@ -49,12 +49,24 @@ namespace Poll_Project.Controllers
         // GET: Responses/Create
         public ActionResult Create(string pollId)
         {
-            if (pollId != null)
+            if (pollId == null)
             {
-                ViewBag.pollID = pollId;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
-            return View();
+            Poll poll = db.Polls.Find(Int32.Parse(pollId));
+            if (poll == null)
+            {
+                return HttpNotFound();
+            }
+
+            CreateResponseViewModel ViewModel = new CreateResponseViewModel();
+            ViewModel.Poll = poll;
+            ViewModel.Response = new Response(poll);
+            foreach (Question question in poll.Questions)
+            {
+                ViewModel.Response.Selections.Add(new Selection(question));
+            }
+            return View(ViewModel);
         }
 
         // POST: Responses/Create
@@ -62,8 +74,9 @@ namespace Poll_Project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Text")] Response response)
+        public ActionResult Create(CreateResponseViewModel viewmodel)
         {
+            var response = viewmodel.Response;
             if (ModelState.IsValid)
             {
                 db.Responses.Add(response);
