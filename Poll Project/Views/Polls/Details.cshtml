@@ -1,0 +1,38 @@
+﻿@model Poll_Project.Models.DetailsPollViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Poll</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Poll.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Poll.Title)
+        </dd>
+
+
+    </dl>
+    <table class="table">
+        @foreach (var question in Model.Questions)
+            {
+            <tr>
+                <td>
+                    @Html.ActionLink(question.Text, "Details", "Questions", new { id = question.ID }, null)
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Poll.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

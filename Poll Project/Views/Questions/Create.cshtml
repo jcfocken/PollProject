@@ -1,0 +1,45 @@
+﻿@model Poll_Project.Models.CreateQuestionViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create question for @Model.Poll.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Poll.ID)
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Text,
+               "Question Text",
+               new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question.Text)
+                @Html.ValidationMessageFor(model => model.Question.Text)
+            </div>
+        </div>
+        <div class="input_fields_wrap">
+            <button class="add_field_button">Add More Fields</button>
+            <div><input type="text" name="Question.Answers[0].Text"></div>
+        </div>
+
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/App/dynamicInputFields.js")
+}

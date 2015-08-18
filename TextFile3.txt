@@ -1,0 +1,6 @@
+
+    <add name="DefaultConnection" connectionString="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\aspnet-Poll Project-20150809075914.mdf&quot;;Initial Catalog=&quot;aspnet-Poll Project-20150809075914&quot;;Integrated Security=True"
+      providerName="System.Data.SqlClient" />
+	  
+    <add name="PollContext" connectionString="Data Source=(LocalDb)\v11.0;Initial Catalog=Poll_Project;Integrated Security=SSPI;"
+      providerName="System.Data.SqlClient"/>
