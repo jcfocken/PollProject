@@ -22,7 +22,9 @@ namespace Poll_Project.Models
     public class Answer
     {
         public int ID { get; set; }
-        //[Required]
+        [Required]
         public string Text { get; set; }
+        public int QuestionID { get; set; }
+
     }
 }
