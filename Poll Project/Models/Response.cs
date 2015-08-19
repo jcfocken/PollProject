@@ -8,6 +8,10 @@ namespace Poll_Project.Models
 {
     public class Response
     {
+        public Response()
+        {
+        }
+
         public Response(Poll poll)
         {
             Poll = poll;
@@ -22,14 +26,8 @@ namespace Poll_Project.Models
 
     public class Selection
     {
-        public Selection(Question question)
-        {
-            Question = question;
-        }
-
         public int ID { get; set; }
+        public int AnswerID { get; set; }
         public virtual Answer Answer { get; set; }
-        [Required]
-        public virtual Question Question { get; set; }
     }
 }

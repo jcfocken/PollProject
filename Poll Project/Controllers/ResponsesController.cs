@@ -20,7 +20,7 @@ namespace Poll_Project.Controllers
         }
 
         public ResponsesController(IApplicationDbContext dbContext)
-        {
+        {   
             db = dbContext;
         }
 
@@ -62,10 +62,6 @@ namespace Poll_Project.Controllers
             CreateResponseViewModel ViewModel = new CreateResponseViewModel();
             ViewModel.Poll = poll;
             ViewModel.Response = new Response(poll);
-            foreach (Question question in poll.Questions)
-            {
-                ViewModel.Response.Selections.Add(new Selection(question));
-            }
             return View(ViewModel);
         }
 
@@ -76,15 +72,14 @@ namespace Poll_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateResponseViewModel viewmodel)
         {
-            var response = viewmodel.Response;
             if (ModelState.IsValid)
             {
-                db.Responses.Add(response);
+                db.Responses.Add(viewmodel.Response);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(response);
+            return View(viewmodel);
         }
 
         // GET: Responses/Edit/5

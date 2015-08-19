@@ -9,11 +9,15 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(model => model.Response.Poll.ID)
+    @Html.HiddenFor(model => model.Poll.ID)
+
     <div class="form-horizontal">
         <h4>Response</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @{ int SelectionsIndex = 0;}
 
         @foreach (var question in Model.Poll.Questions)
         {
@@ -24,9 +28,10 @@
                 <div class="col-md-10">
                     @foreach (var answer in question.Answers)
                     {
-                        @Html.RadioButton("CHANGE", answer.ID, new { id = "answer" + answer.Text })
+                        @Html.RadioButton("Response.Selections[" + SelectionsIndex + "].AnswerID", answer.ID, new { id = "answer" + answer.Text })
                         @answer.Text
                     }
+                    @{ SelectionsIndex++;}
                 </div>
             </div>
         }
