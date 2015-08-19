@@ -18,7 +18,7 @@ namespace Poll_Project.Tests.Controllers
         {
             // Arrange
             var fakeDB = new FakePollContext();
-            fakeDB.Polls = new FakeDbSet<Poll>();
+            fakeDB.Polls = new FakePollSet();
             fakeDB.Questions = new FakeDbSet<Question>();
 
             var poll = new Poll { ID = 1, Title = "Hello" };
@@ -29,7 +29,7 @@ namespace Poll_Project.Tests.Controllers
             QuestionsController controller = new QuestionsController(fakeDB);
 
             // Act
-            ViewResult result = controller.Create("0") as ViewResult;
+            ViewResult result = controller.Create("1") as ViewResult;
             CreateQuestionViewModel generatedViewModel = result.ViewData.Model as CreateQuestionViewModel;
 
             // Assert

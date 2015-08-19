@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Poll_Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,10 +44,9 @@ namespace Poll_Project.DAL
             throw new NotImplementedException();
         }
 
-        public T Find(params object[] keyValues)
+        public virtual T Find(params object[] keyValues)
         {
-            return list[Convert.ToInt32(keyValues[0])];
-            throw new NotImplementedException();
+            throw new NotImplementedException("Derive from FakeDbSet<T> and override Find");
         }
 
         public System.Collections.ObjectModel.ObservableCollection<T> Local
@@ -101,5 +101,13 @@ namespace Poll_Project.DAL
         }
 
         #endregion
+    }
+
+    public class FakePollSet : FakeDbSet<Poll>
+    {
+        public override Poll Find(params object[] keyValues)
+        {
+            return this.SingleOrDefault(e => e.ID == (int)keyValues.Single());
+        }
     }
 }

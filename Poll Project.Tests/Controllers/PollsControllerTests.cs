@@ -20,7 +20,7 @@ namespace Poll_Project.Controllers.Tests
         {
             // Arrange
             var fakeDB = new FakePollContext();
-            fakeDB.Polls = new FakeDbSet<Poll>();
+            fakeDB.Polls = new FakePollSet();
 
             var poll = new Poll { ID = 1, Title = "Hello" };
             fakeDB.Polls.Add(poll);
@@ -36,6 +36,35 @@ namespace Poll_Project.Controllers.Tests
             // Assert
             Assert.AreEqual(polls.ElementAt(0).Title , "Hello");
             Assert.AreEqual(polls.ElementAt(1).Title, "world");
+        }
+
+        [TestMethod()]
+        public void PollPassedToDetailsView()
+        {
+            // Arrange
+            var fakeDB = new FakePollContext();
+            fakeDB.Polls = new FakePollSet();
+
+            var poll = new Poll { ID = 1, Title = "Hello" };
+            fakeDB.Polls.Add(poll);
+            var poll2 = new Poll { ID = 2, Title = "world" };
+            fakeDB.Polls.Add(poll2);
+
+            PollsController controller = new PollsController(fakeDB);
+
+            // Act
+            ViewResult result = controller.Details(1) as ViewResult;
+            DetailsPollViewModel resultPoll = result.ViewData.Model as DetailsPollViewModel;
+
+            // Assert
+            Assert.AreEqual(resultPoll.Poll.Title, "Hello");
+
+            // Act
+            ViewResult result2 = controller.Details(2) as ViewResult;
+            DetailsPollViewModel resultPoll2 = result2.ViewData.Model as DetailsPollViewModel;
+
+            // Assert
+            Assert.AreEqual(resultPoll2.Poll.Title, "world");
         }
     }
 }
