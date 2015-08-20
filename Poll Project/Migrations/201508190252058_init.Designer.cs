@@ -13,7 +13,7 @@ namespace Poll_Project.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201508180009250_init"; }
+            get { return "201508190252058_init"; }
         }
         
         string IMigrationMetadata.Source

@@ -21,36 +21,52 @@ namespace Poll_Project.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        PollID = c.Int(nullable: false),
                         Text = c.String(),
-                        Poll_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Polls", t => t.Poll_ID)
-                .Index(t => t.Poll_ID);
+                .ForeignKey("dbo.Polls", t => t.PollID, cascadeDelete: true)
+                .Index(t => t.PollID);
             
             CreateTable(
                 "dbo.Answers",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Text = c.String(),
-                        Question_ID = c.Int(),
+                        Text = c.String(nullable: false),
+                        QuestionID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Questions", t => t.Question_ID)
-                .Index(t => t.Question_ID);
+                .ForeignKey("dbo.Questions", t => t.QuestionID, cascadeDelete: true)
+                .Index(t => t.QuestionID);
             
             CreateTable(
                 "dbo.Responses",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Text = c.String(),
-                        Poll_ID = c.Int(),
+                        Poll_ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Polls", t => t.Poll_ID)
+                .ForeignKey("dbo.Polls", t => t.Poll_ID, cascadeDelete: true)
                 .Index(t => t.Poll_ID);
+            
+            CreateTable(
+                "dbo.Selections",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Answer_ID = c.Int(),
+                        Question_ID = c.Int(nullable: false),
+                        Response_ID = c.Int(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Answers", t => t.Answer_ID)
+                .ForeignKey("dbo.Questions", t => t.Question_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Responses", t => t.Response_ID)
+                .Index(t => t.Answer_ID)
+                .Index(t => t.Question_ID)
+                .Index(t => t.Response_ID);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -128,23 +144,30 @@ namespace Poll_Project.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Selections", "Response_ID", "dbo.Responses");
+            DropForeignKey("dbo.Selections", "Question_ID", "dbo.Questions");
+            DropForeignKey("dbo.Selections", "Answer_ID", "dbo.Answers");
             DropForeignKey("dbo.Responses", "Poll_ID", "dbo.Polls");
-            DropForeignKey("dbo.Questions", "Poll_ID", "dbo.Polls");
-            DropForeignKey("dbo.Answers", "Question_ID", "dbo.Questions");
+            DropForeignKey("dbo.Questions", "PollID", "dbo.Polls");
+            DropForeignKey("dbo.Answers", "QuestionID", "dbo.Questions");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Selections", new[] { "Response_ID" });
+            DropIndex("dbo.Selections", new[] { "Question_ID" });
+            DropIndex("dbo.Selections", new[] { "Answer_ID" });
             DropIndex("dbo.Responses", new[] { "Poll_ID" });
-            DropIndex("dbo.Answers", new[] { "Question_ID" });
-            DropIndex("dbo.Questions", new[] { "Poll_ID" });
+            DropIndex("dbo.Answers", new[] { "QuestionID" });
+            DropIndex("dbo.Questions", new[] { "PollID" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Selections");
             DropTable("dbo.Responses");
             DropTable("dbo.Answers");
             DropTable("dbo.Questions");
