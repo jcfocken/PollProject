@@ -26,7 +26,8 @@
             @Html.ActionLink("Take Poll", "Create", "Responses", new { pollId=item.ID }, null) |
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) |
+            @Html.ActionLink("Results", "Results", new { id = item.ID })
         </td>
     </tr>
 }

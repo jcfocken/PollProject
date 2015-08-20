@@ -17,7 +17,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Selections)
+            @Html.DisplayFor(modelItem => item.Poll.Title)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

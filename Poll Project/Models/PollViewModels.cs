@@ -40,10 +40,33 @@ namespace Poll_Project.Models
         {
             Poll = poll;
             numOfResponses = Poll.Responses.Count();
+            AnswerCounts = new Dictionary<int, int>();
+            foreach (Question question in Poll.Questions)
+            {
+                foreach (Answer answer in question.Answers)
+                {
+                    int count = 0;
+                    foreach (Response response in Poll.Responses)
+                    {
+                        if (response.Selections != null)
+                        {
+                            foreach (Selection selection in response.Selections)
+                            {
+                                if (selection.AnswerID == answer.ID)
+                                {
+                                    count++;
+                                }
+                            }
+                        }                        
+                    }
+                    AnswerCounts.Add(answer.ID, count);
+                }
+            }
         }
 
         public Poll Poll { get; set; }
         public int numOfResponses { get; set; }
+        public Dictionary<int, int> AnswerCounts{ get; set; }
 
 
 

@@ -69,43 +69,69 @@ namespace Poll_Project.Controllers.Tests
 
 
         [TestMethod()]
-        public void ResponsesPassedToPollResultView()
+        public void PollPassedToPollResultView()
         {
             // Arrange
             var fakeDB = new FakePollContext();
             fakeDB.Polls = new FakePollSet();
             fakeDB.Questions = new FakeDbSet<Question>();
             fakeDB.Answers = new FakeDbSet<Answer>();
-            fakeDB.Responses = new FakeDbSet<Response>();
+            fakeDB.Responses = new FakeResponseSet();
             fakeDB.Selections = new FakeDbSet<Selection>();
 
             var poll1 = new Poll { ID = 1, Title = "Hello" };
             fakeDB.Polls.Add(poll1);
-            var Answer1 = new Answer { ID = 1, Text = "Answer1", QuestionID = 1 };
-            fakeDB.Answers.Add(Answer1);
-            var question1 = new Question { ID = 1, Poll = poll1, Text = "Question1", Answers = new List<Answer> { Answer1 } };
-            fakeDB.Answers.Add(Answer1);
-            var selection1 = new Selection { ID = 1, Answer = Answer1, AnswerID = 1 };
-            fakeDB.Answers.Add(Answer1);
-            var response = new Response { ID = 1, Poll = poll1, Selections = new List<Selection> { selection1 } };
-            fakeDB.Answers.Add(Answer1);
+            var answer1 = new Answer { ID = 1, Text = "Answer1", QuestionID = 1 };
+            fakeDB.Answers.Add(answer1);
+            var question1 = new Question { ID = 1, Poll = poll1, Text = "Question1", Answers = new List<Answer> { answer1 } };
+            fakeDB.Questions.Add(question1);
+            var selection1 = new Selection { ID = 1, Answer = answer1, AnswerID = 1 };
+            fakeDB.Selections.Add(selection1);
+            var response1 = new Response { ID = 1, Poll = poll1, Selections = new List<Selection> { selection1 } };
+            fakeDB.Responses.Add(response1);
 
 
             PollsController controller = new PollsController(fakeDB);
 
             // Act
             ViewResult result = controller.Results(1) as ViewResult;
-            DetailsPollViewModel resultPoll = result.ViewData.Model as DetailsPollViewModel;
+            PollResultsViewModel viewmodel = result.ViewData.Model as PollResultsViewModel;
 
             // Assert
-            Assert.AreEqual(resultPoll.Poll.Title, "Hello");
+            Assert.AreEqual(viewmodel.Poll.Title, "Hello");
+        }
+
+        [TestMethod()]
+        public void ResponsesCountPassedToPollResultView()
+        {
+            // Arrange
+            var fakeDB = new FakePollContext();
+            fakeDB.Polls = new FakePollSet();
+            fakeDB.Questions = new FakeDbSet<Question>();
+            fakeDB.Answers = new FakeDbSet<Answer>();
+            fakeDB.Responses = new FakeResponseSet();
+            fakeDB.Selections = new FakeDbSet<Selection>();
+
+            var poll1 = new Poll { ID = 1, Title = "Hello" };
+            fakeDB.Polls.Add(poll1);
+            var answer1 = new Answer { ID = 1, Text = "Answer1", QuestionID = 1 };
+            fakeDB.Answers.Add(answer1);
+            var question1 = new Question { ID = 1, Poll = poll1, Text = "Question1", Answers = new List<Answer> { answer1 } };
+            fakeDB.Questions.Add(question1);
+            var selection1 = new Selection { ID = 1, Answer = answer1, AnswerID = 1 };
+            fakeDB.Selections.Add(selection1);
+            var response1 = new Response { ID = 1, Poll = poll1, Selections = new List<Selection> { selection1 } };
+            fakeDB.Responses.Add(response1);
+
+
+            PollsController controller = new PollsController(fakeDB);
 
             // Act
-            ViewResult result2 = controller.Details(2) as ViewResult;
-            DetailsPollViewModel resultPoll2 = result2.ViewData.Model as DetailsPollViewModel;
+            ViewResult result = controller.Results(0) as ViewResult;
+            PollResultsViewModel viewmodel = result.ViewData.Model as PollResultsViewModel;
 
             // Assert
-            Assert.AreEqual(resultPoll2.Poll.Title, "world");
+            Assert.AreEqual(viewmodel.numOfResponses, 1);
         }
 
     }

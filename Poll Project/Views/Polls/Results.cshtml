@@ -17,8 +17,6 @@
         <dd>
             @Html.DisplayFor(model => model.Poll.Title)
         </dd>
-
-
     </dl>
     <dl class="dl-horizontal">
         <dt>
@@ -28,9 +26,26 @@
         <dd>
             @Model.numOfResponses
         </dd>
-
-
     </dl>
+
+    @foreach (var question in Model.Poll.Questions)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => question.Text,
+                question.Text,
+               new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @foreach (var answer in question.Answers)
+                {
+                    <p>
+                        @answer.Text 
+                        Times Chosen:
+                        @Model.AnswerCounts[answer.ID] 
+                    </p>
+                }
+            </div>
+        </div>
+    }
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Poll.ID }) |

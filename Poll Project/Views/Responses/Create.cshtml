@@ -27,8 +27,11 @@
                 <div class="col-md-10">
                     @foreach (var answer in question.Answers)
                     {
+                        <p>
                         @Html.RadioButton("Selections[" + SelectionsIndex + "].AnswerID", answer.ID, new { id = "answer" + answer.Text })
                         @answer.Text
+                        </p>
+                        
                     }
                     @{ SelectionsIndex++;}
                 </div>
