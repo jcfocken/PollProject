@@ -110,4 +110,12 @@ namespace Poll_Project.DAL
             return this.SingleOrDefault(e => e.ID == (int)keyValues.Single());
         }
     }
+
+    public class FakeResponseSet : FakeDbSet<Response>
+    {
+        public override Response Find(params object[] keyValues)
+        {
+            return this.SingleOrDefault(e => e.ID == (int)keyValues.Single());
+        }
+    }
 }

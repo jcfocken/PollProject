@@ -9,7 +9,6 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Response.Poll.ID)
     @Html.HiddenFor(model => model.Poll.ID)
 
     <div class="form-horizontal">
@@ -28,7 +27,7 @@
                 <div class="col-md-10">
                     @foreach (var answer in question.Answers)
                     {
-                        @Html.RadioButton("Response.Selections[" + SelectionsIndex + "].AnswerID", answer.ID, new { id = "answer" + answer.Text })
+                        @Html.RadioButton("Selections[" + SelectionsIndex + "].AnswerID", answer.ID, new { id = "answer" + answer.Text })
                         @answer.Text
                     }
                     @{ SelectionsIndex++;}

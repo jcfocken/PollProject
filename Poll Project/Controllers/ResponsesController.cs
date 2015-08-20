@@ -59,10 +59,8 @@ namespace Poll_Project.Controllers
                 return HttpNotFound();
             }
 
-            CreateResponseViewModel ViewModel = new CreateResponseViewModel();
-            ViewModel.Poll = poll;
-            ViewModel.Response = new Response(poll);
-            return View(ViewModel);
+            CreateResponseViewModel viewmodel = new CreateResponseViewModel(poll);
+            return View(viewmodel);
         }
 
         // POST: Responses/Create
@@ -74,9 +72,15 @@ namespace Poll_Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Responses.Add(viewmodel.Response);
+                Poll poll = db.Polls.Find(viewmodel.Poll.ID);
+                Response PollResponse = new Response
+                {
+                    Selections = viewmodel.Selections,
+                    Poll = poll
+                };
+                db.Responses.Add(PollResponse);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Polls");
             }
 
             return View(viewmodel);

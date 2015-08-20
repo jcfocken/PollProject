@@ -18,6 +18,7 @@ namespace Poll_Project.Models
         }
 
         public int ID { get; set; }
+        public int PollID { get; set; }
         public ICollection<Selection> Selections{ get; set; }
 
         [Required]

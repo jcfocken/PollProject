@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Controllers\PollsControllerTests.cs" />
     <Compile Include="Controllers\QuestionControllerTests.cs" />
+    <Compile Include="Controllers\ResponseControllerTests.cs" />
     <Compile Include="FakeDB\FakeDBSet.cs" />
     <Compile Include="FakeDB\FakePollContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

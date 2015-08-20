@@ -68,11 +68,11 @@ namespace Poll_Project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateQuestionViewModel ViewModel)
+        public ActionResult Create(CreateQuestionViewModel viewmodel)
         {
-            Poll poll = db.Polls.Find(ViewModel.PollID);
+            Poll poll = db.Polls.Find(viewmodel.PollID);
             ICollection<Answer> Answers = new List<Answer> { };
-            foreach (string answerText in ViewModel.Answers)
+            foreach (string answerText in viewmodel.Answers)
             {
                 Answers.Add(new Answer { Text = answerText });
             }
@@ -80,16 +80,16 @@ namespace Poll_Project.Controllers
             {
                 Question question = new Question
                 {
-                    Text = ViewModel.QuestionText, 
+                    Text = viewmodel.QuestionText, 
                     Answers = Answers,                   
-                    Poll = poll
+                    PollID = poll.ID
                 };
                 db.Questions.Add(question);
                 db.SaveChanges();
                 return RedirectToAction("Edit", "Polls", new { id = poll.ID });
             }
 
-            return View(ViewModel);
+            return View(viewmodel);
         }
 
         // GET: Questions/Edit/5

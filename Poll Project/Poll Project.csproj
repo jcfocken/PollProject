@@ -173,9 +173,9 @@
     <Compile Include="Controllers\PollsController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\ResponsesController.cs" />
-    <Compile Include="Migrations\201508190252058_init.cs" />
-    <Compile Include="Migrations\201508190252058_init.Designer.cs">
-      <DependentUpon>201508190252058_init.cs</DependentUpon>
+    <Compile Include="Migrations\201508200411193_new.cs" />
+    <Compile Include="Migrations\201508200411193_new.Designer.cs">
+      <DependentUpon>201508200411193_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\IApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -278,8 +278,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508190252058_init.resx">
-      <DependentUpon>201508190252058_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508200411193_new.resx">
+      <DependentUpon>201508200411193_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
