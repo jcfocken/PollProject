@@ -264,6 +264,7 @@
     <Content Include="Views\Responses\Details.cshtml" />
     <Content Include="Views\Responses\Edit.cshtml" />
     <Content Include="Views\Responses\Index.cshtml" />
+    <Content Include="Views\Polls\Results.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

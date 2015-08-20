@@ -129,6 +129,25 @@ namespace Poll_Project.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Polls/Results/5
+        public ActionResult Results(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Poll poll = db.Polls.Find(id);
+
+            if (poll == null)
+            {
+                return HttpNotFound();
+            }
+
+            PollResultsViewModel ViewModel = new PollResultsViewModel(poll);
+            return View(ViewModel);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

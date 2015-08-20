@@ -8,7 +8,8 @@
         e.preventDefault();
         if (x < max_fields) { //max input box allowed
             x++; //text box increment
-            $(wrapper).append('<div><input type="text" name="Question.Answers[' + (x-1) + '].Text"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+            $(wrapper).append('<div><input type="text" name="Answers[' + (x - 1) + ']"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+
         }
     });
 

@@ -13,7 +13,9 @@ namespace Poll_Project.Tests.FakeDB
     {
         public IDbSet<Poll> Polls { get; set; }
         public IDbSet<Question> Questions { get; set; }
+        public IDbSet<Answer> Answers { get; set; }
         public IDbSet<Response> Responses { get; set; }
+        public IDbSet<Selection> Selections { get; set; }
 
         public void Dispose()
         {

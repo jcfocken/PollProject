@@ -12,7 +12,10 @@ namespace Poll_Project.Models
     {
         IDbSet<Poll> Polls { get; set; }
         IDbSet<Question> Questions { get; set; }
+        IDbSet<Answer> Answers { get; set; }
         IDbSet<Response> Responses { get; set; }
+        IDbSet<Selection> Selections { get; set; }
+
 
         int SaveChanges();
         void Dispose();

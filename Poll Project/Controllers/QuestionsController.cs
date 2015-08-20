@@ -46,7 +46,7 @@ namespace Poll_Project.Controllers
             return View(question);
         }
 
-        // GET: Responses/Create
+        // GET: Questions/Create
         public ActionResult Create(string pollId)
         {
             if (pollId == null)
@@ -59,8 +59,7 @@ namespace Poll_Project.Controllers
                 return HttpNotFound();
             }
 
-            CreateQuestionViewModel ViewModel = new CreateQuestionViewModel();
-            ViewModel.Poll = poll;
+            CreateQuestionViewModel ViewModel = new CreateQuestionViewModel(poll);
             return View(ViewModel);
         }
 
@@ -71,12 +70,21 @@ namespace Poll_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateQuestionViewModel ViewModel)
         {
-            var poll = db.Polls.Find(ViewModel.Poll.ID);
-            ViewModel.Question.Poll = poll;
-            ViewModel.Poll = poll;
+            Poll poll = db.Polls.Find(ViewModel.PollID);
+            ICollection<Answer> Answers = new List<Answer> { };
+            foreach (string answerText in ViewModel.Answers)
+            {
+                Answers.Add(new Answer { Text = answerText });
+            }
             if (ModelState.IsValid)
             {
-                db.Questions.Add(ViewModel.Question);
+                Question question = new Question
+                {
+                    Text = ViewModel.QuestionText, 
+                    Answers = Answers,                   
+                    Poll = poll
+                };
+                db.Questions.Add(question);
                 db.SaveChanges();
                 return RedirectToAction("Edit", "Polls", new { id = poll.ID });
             }

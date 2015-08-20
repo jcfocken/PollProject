@@ -28,6 +28,7 @@ namespace Poll_Project.Models
     {
         public int ID { get; set; }
         public int AnswerID { get; set; }
+
         public virtual Answer Answer { get; set; }
     }
 }

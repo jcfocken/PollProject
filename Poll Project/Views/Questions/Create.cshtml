@@ -4,28 +4,29 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create question for @Model.Poll.Title</h2>
+<h2>Create question for @Model.PollTitle</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Poll.ID)
+    @Html.HiddenFor(model => model.PollID)
+    @Html.HiddenFor(model => model.PollTitle)
 
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
         <div class="form-group">
-            @Html.LabelFor(model => model.Question.Text,
+            @Html.LabelFor(model => model.QuestionText,
                "Question Text",
                new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Question.Text)
-                @Html.ValidationMessageFor(model => model.Question.Text)
+                @Html.EditorFor(model => model.QuestionText)
+                @Html.ValidationMessageFor(model => model.QuestionText)
             </div>
         </div>
         <div class="input_fields_wrap">
             <button class="add_field_button">Add More Fields</button>
-            <div><input type="text" name="Question.Answers[0].Text"></div>
+            <div><input type="text" name="Answers[0]"></div>
         </div>
 
         <div class="col-md-offset-2 col-md-10">

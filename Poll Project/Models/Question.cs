@@ -10,12 +10,12 @@ namespace Poll_Project.Models
     {
         public int ID { get; set; }
         public int PollID { get; set; }
-        //[Required]
+        [Required]
         public string Text { get; set; }
 
         //[MinLength(2, ErrorMessage ="Each question needs at least two answers")]
         public virtual ICollection<Answer> Answers { get; set; }
-        //[Required]
+        [Required]
         public virtual Poll Poll { get; set; }
     }
 
@@ -25,6 +25,9 @@ namespace Poll_Project.Models
         [Required]
         public string Text { get; set; }
         public int QuestionID { get; set; }
+
+        [Required]
+        public virtual Question Question { get; set; }
 
     }
 }

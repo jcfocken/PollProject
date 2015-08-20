@@ -33,7 +33,7 @@ namespace Poll_Project.Tests.Controllers
             CreateQuestionViewModel generatedViewModel = result.ViewData.Model as CreateQuestionViewModel;
 
             // Assert
-            Assert.AreEqual(generatedViewModel.Poll.Title, "Hello");
+            Assert.AreEqual(generatedViewModel.PollTitle, "Hello");
         }
     }
 }
