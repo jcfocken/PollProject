@@ -109,7 +109,7 @@ namespace Poll_Project.Models
         }
 
         public Poll Poll { get; set; }
-        public List<Selection> Selections { get; set; }
+        public List<int> Selections { get; set; }
 
     }
 }

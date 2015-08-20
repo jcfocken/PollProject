@@ -19,8 +19,7 @@ namespace Poll_Project.Models
 
         public int ID { get; set; }
         public int PollID { get; set; }
-        public ICollection<Selection> Selections{ get; set; }
-
+        public virtual ICollection<Selection> Selections{ get; set; }
         [Required]
         public virtual Poll Poll { get; set; }
     }

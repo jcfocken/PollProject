@@ -75,9 +75,14 @@ namespace Poll_Project.Controllers
                 Poll poll = db.Polls.Find(viewmodel.Poll.ID);
                 Response PollResponse = new Response
                 {
-                    Selections = viewmodel.Selections,
-                    Poll = poll
+                    Poll = poll,
+                    Selections = new List<Selection>()
                 };
+                foreach (int selectionAnswerID in viewmodel.Selections)
+                {
+                    Answer answer = db.Answers.Find(selectionAnswerID);
+                    PollResponse.Selections.Add(new Selection { Answer = answer });
+                }
                 db.Responses.Add(PollResponse);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Polls");

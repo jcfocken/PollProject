@@ -41,7 +41,7 @@ namespace Poll_Project.Tests.Controllers
             CreateResponseViewModel viewmodel = new CreateResponseViewModel
             {
                 Poll = poll1,
-                Selections = new List<Selection> { new Selection { ID = 2, Answer = answer1, AnswerID = 1 } }
+                Selections = new List<int> { 1 }
             };
             // Act
             ViewResult result = controller.Create(viewmodel) as ViewResult;
